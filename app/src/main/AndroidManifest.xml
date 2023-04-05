@@ -19,7 +19,8 @@
             android:exported="false" />
         <activity
             android:name=".AllSpells"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".CharacterSelection"/>
         <activity
             android:name=".CharacterSelection"
             android:exported="false" />
