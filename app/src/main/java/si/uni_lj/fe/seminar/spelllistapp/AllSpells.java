@@ -166,7 +166,6 @@ public class AllSpells extends AppCompatActivity {
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
-//            return list.size();
         }
     }
 
