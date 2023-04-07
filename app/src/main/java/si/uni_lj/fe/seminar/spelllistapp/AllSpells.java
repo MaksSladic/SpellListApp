@@ -43,24 +43,58 @@ public class AllSpells extends AppCompatActivity {
         String cantrips = getIntent().getStringExtra("cantrips");
         String firstLevel = getIntent().getStringExtra("firstLevel");
         String secondLevel = getIntent().getStringExtra("secondLevel");
-//        String cantrips = getIntent().getStringExtra("cantrips");
-//        String cantrips = getIntent().getStringExtra("cantrips");
-//        String cantrips = getIntent().getStringExtra("cantrips");
-//        String cantrips = getIntent().getStringExtra("cantrips");
-//        String cantrips = getIntent().getStringExtra("cantrips");
+        String thirdLevel = getIntent().getStringExtra("thirdLevel");
+        String fourthLevel = getIntent().getStringExtra("fourthLevel");
+        String fifthLevel = getIntent().getStringExtra("fifthLevel");
+        String sixthLevel = getIntent().getStringExtra("sixthLevel");
+        String seventhLevel = getIntent().getStringExtra("seventhLevel");
+        String eighthLevel = getIntent().getStringExtra("eighthLevel");
         String ninthLevel = getIntent().getStringExtra("ninthLevel");
 
 
         CustomAdapter customadapter0 = new CustomAdapter(this,cantrips);
         CustomAdapter customadapter1 = new CustomAdapter(this,firstLevel);
+        CustomAdapter customadapter2 = new CustomAdapter(this,secondLevel);
+        CustomAdapter customadapter3 = new CustomAdapter(this,thirdLevel);
+        CustomAdapter customadapter4 = new CustomAdapter(this,fourthLevel);
+        CustomAdapter customadapter5 = new CustomAdapter(this,fifthLevel);
+        CustomAdapter customadapter6 = new CustomAdapter(this,sixthLevel);
+        CustomAdapter customadapter7 = new CustomAdapter(this,seventhLevel);
+        CustomAdapter customadapter8 = new CustomAdapter(this,eighthLevel);
+        CustomAdapter customadapter9 = new CustomAdapter(this,ninthLevel);
+
         recyclerView0 = findViewById(R.id.recyclerview_spells_cantrips);
         recyclerView1 = findViewById(R.id.recyclerview_spells_first);
+        recyclerView2 = findViewById(R.id.recyclerview_spells_second);
+        recyclerView3 = findViewById(R.id.recyclerview_spells_third);
+        recyclerView4 = findViewById(R.id.recyclerview_spells_fourth);
+        recyclerView5 = findViewById(R.id.recyclerview_spells_fifth);
+        recyclerView6 = findViewById(R.id.recyclerview_spells_sixth);
+        recyclerView7 = findViewById(R.id.recyclerview_spells_seventh);
+        recyclerView8 = findViewById(R.id.recyclerview_spells_eighth);
+        recyclerView9 = findViewById(R.id.recyclerview_spells_ninth);
 
         recyclerView0.setLayoutManager(new LinearLayoutManager(this));
         recyclerView1.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView2.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView3.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView4.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView5.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView6.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView7.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView8.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView9.setLayoutManager(new LinearLayoutManager(this));
 
         recyclerView0.setAdapter(customadapter0);
         recyclerView1.setAdapter(customadapter1);
+        recyclerView2.setAdapter(customadapter2);
+        recyclerView3.setAdapter(customadapter3);
+        recyclerView4.setAdapter(customadapter4);
+        recyclerView5.setAdapter(customadapter5);
+        recyclerView6.setAdapter(customadapter6);
+        recyclerView7.setAdapter(customadapter7);
+        recyclerView8.setAdapter(customadapter8);
+        recyclerView9.setAdapter(customadapter9);
 
 
     }
@@ -108,6 +142,12 @@ public class AllSpells extends AppCompatActivity {
 
                 JSONObject object = (JSONObject) list.get(position);
                 holder.SpellName.setText(object.getString("SpellName"));
+                holder.CastingTime.setText(object.getString("SpellCastingTime"));
+                holder.Components.setText(object.getString("SpellComponents"));
+                holder.SpellSchool.setText(object.getString("SpellSchool"));
+                holder.Ritual.setText(object.getString("SpellRitual"));
+                holder.Concentration.setText(object.getString("SpellConcentration"));
+
 
             } catch (JSONException e) {
                 throw new RuntimeException(e);
