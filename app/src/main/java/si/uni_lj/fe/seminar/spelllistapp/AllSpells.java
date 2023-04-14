@@ -143,7 +143,14 @@ public class AllSpells extends AppCompatActivity {
                 JSONObject object = (JSONObject) list.get(position);
                 holder.SpellName.setText(object.getString("SpellName"));
                 holder.CastingTime.setText(object.getString("SpellCastingTime"));
-                holder.Components.setText(object.getString("SpellComponents"));
+                String Components = object.getString("SpellComponents");
+                int index = Components.indexOf("(");
+                if (index != -1) {
+                    String result = Components.substring(0, index);
+                    holder.Components.setText(result);
+                } else {
+                    holder.Components.setText(object.getString("SpellComponents"));
+                }
                 holder.SpellSchool.setText(object.getString("SpellSchool"));
                 holder.Ritual.setText(object.getString("SpellRitual"));
                 holder.Concentration.setText(object.getString("SpellConcentration"));

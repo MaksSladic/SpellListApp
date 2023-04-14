@@ -54,6 +54,16 @@ public class CharacterSelection extends AppCompatActivity {
                 Intent intent= new Intent(CharacterSelection.this, Characters.class);
                 intent.putExtra("characters",characters);
                 intent.putExtra("UserName", UserName);
+                intent.putExtra("cantrips", cantrips);
+                intent.putExtra("firstLevel", firstLevel);
+                intent.putExtra("secondLevel", secondLevel);
+                intent.putExtra("thirdLevel", thirdLevel);
+                intent.putExtra("fourthLevel", fourthLevel);
+                intent.putExtra("fifthLevel", fifthLevel);
+                intent.putExtra("sixthLevel", sixthLevel);
+                intent.putExtra("seventhLevel", seventhLevel);
+                intent.putExtra("eighthLevel", eighthLevel);
+                intent.putExtra("ninthLevel", ninthLevel);
                 startActivity(intent);
             }
         }));
@@ -182,11 +192,9 @@ public class CharacterSelection extends AppCompatActivity {
 
             try {
                 JSONArray spells = new JSONArray(response);
-//                Log.d("Spells: ", String.valueOf(spells));
 
                 for (int i = 0; i<spells.length();i++){
                     JSONObject object = spells.getJSONObject(i);
-//                    Log.d("Spell Name",object.getString("SpellName"));
                 }
 
                 switch (level) {
