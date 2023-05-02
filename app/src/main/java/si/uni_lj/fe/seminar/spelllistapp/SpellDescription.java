@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -20,6 +21,8 @@ public class SpellDescription extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spell_description);
         String url = "http://10.0.2.2/spell_list_app/spells/";
@@ -27,6 +30,15 @@ public class SpellDescription extends AppCompatActivity {
         String SpellName = getIntent().getStringExtra("SpellName");
         String URL = url + SpellName;
         new SpellInfo(this).execute(URL);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
     public class SpellInfo extends AsyncTask<String, Void, String>
     {
@@ -74,7 +86,8 @@ public class SpellDescription extends AppCompatActivity {
                 TextView SpellDuration = findViewById(R.id.SpellDuration);
                 TextView SpellDescription = findViewById(R.id.SpellDescription);
 
-                JSONObject object = new JSONObject(response);
+                JSONArray array = new JSONArray(response);
+                JSONObject object = new JSONObject(String.valueOf(array.getJSONObject(0)));
                 Log.d("description", String.valueOf(object));
                 SpellName.setText(object.getString("SpellName"));
                 SpellLevelAndSchool.setText("lvl"+object.getString("SpellLevel")+" "+object.getString("SpellSchool")+" spell");

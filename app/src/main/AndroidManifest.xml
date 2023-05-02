@@ -21,16 +21,14 @@
             android:exported="false" />
         <activity
             android:name=".Characters"
-            android:exported="false"
-            android:parentActivityName=".CharacterSelection" />
+            android:exported="false"/>
         <activity
             android:name=".SpellsOfCharacter"
             android:exported="false"
             android:parentActivityName=".Characters" />
         <activity
             android:name=".AllSpells"
-            android:exported="false"
-            android:parentActivityName=".CharacterSelection" />
+            android:exported="false" />
         <activity
             android:name=".CharacterSelection"
             android:exported="false" />

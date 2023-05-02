@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -84,14 +85,13 @@ public class Login extends AppCompatActivity {
                 outputStreamWriter.flush();
                 outputStreamWriter.close();
 
-                Log.d("Tukej: ","Tukej1");
                 int status = loginuser.getResponseCode();
-                Log.d("status: ", String.valueOf(status));
+//                Log.d("status: ", String.valueOf(status));
                 if (status == 200){
-                    Log.d("Tukej: ","Tukej2");
+                    String odgovor;
                     BufferedReader reader = new BufferedReader(new InputStreamReader(loginuser.getInputStream()));
                     StringBuilder response = new StringBuilder();
-                    String odgovor;
+                    response.append(status);
                     while((odgovor = reader.readLine()) != null){
                         response.append(odgovor);
                     }
@@ -108,11 +108,25 @@ public class Login extends AppCompatActivity {
         @Override
         protected void onPostExecute(String response) {
             Log.d("Response", String.valueOf(response));
-
-            Intent intent= new Intent(Login.this,CharacterSelection.class);
-            intent.putExtra("JWT",String.valueOf(response));
-            intent.putExtra("UserName", Username);
-            startActivity(intent);
+            if(response != null)
+            {
+                String status = response.substring(0,3);
+                String jwt = response.substring(3);
+                Log.d("status",status);
+                if(status.equals("200"))
+                {
+                    Log.d("tukej","tukej");
+                    Intent intent= new Intent(Login.this,CharacterSelection.class);
+                    intent.putExtra("JWT",String.valueOf(jwt));
+                    intent.putExtra("UserName", Username);
+                    startActivity(intent);
+                }
+            }
+            else
+            {
+                TextView ErrorMessage = findViewById(R.id.errorText);
+                ErrorMessage.setText("Username/Password was incorrect.");
+            }
         }
     }
 

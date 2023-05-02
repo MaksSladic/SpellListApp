@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.ConditionVariable;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -34,6 +35,8 @@ public class SpellsOfCharacter extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spells_of_character);
 
@@ -125,7 +128,15 @@ public class SpellsOfCharacter extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     public class CustomAdapter extends RecyclerView.Adapter<SpellsOfCharacter.CustomAdapter.SpellInfo>
     {
@@ -144,6 +155,7 @@ public class SpellsOfCharacter extends AppCompatActivity {
                 SpellSchool = itemView.findViewById(R.id.SpellSchool);
                 Ritual = itemView.findViewById(R.id.Ritual);
                 Concentration = itemView.findViewById(R.id.Concentration);
+                itemView.setOnClickListener(this);
             }
 
             @Override

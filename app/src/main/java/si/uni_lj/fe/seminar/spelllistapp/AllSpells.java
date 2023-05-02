@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -35,6 +37,8 @@ public class AllSpells extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_spells);
         String url = "http://10.0.2.2/spell_list_app/spells/";
@@ -98,24 +102,56 @@ public class AllSpells extends AppCompatActivity {
 
 
     }
-    public class SpellInfo extends RecyclerView.ViewHolder {
-        public TextView SpellName, CastingTime, Components, SpellSchool, Ritual, Concentration;
-        public SpellInfo(@NonNull View itemView) {
-            super(itemView);
-            SpellName = itemView.findViewById(R.id.textview_spell_name);
-            CastingTime = itemView.findViewById(R.id.CastingTime);
-            Components = itemView.findViewById(R.id.Spell_Components);
-            SpellSchool = itemView.findViewById(R.id.SpellSchool);
-            Ritual = itemView.findViewById(R.id.Ritual);
-            Concentration = itemView.findViewById(R.id.Concentration);
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
-    public class CustomAdapter extends RecyclerView.Adapter<SpellInfo>{
+
+
+    public class CustomAdapter extends RecyclerView.Adapter<AllSpells.CustomAdapter.SpellInfo>{
         private Context context;
         private String string;
 
         private List list;
+
+        public class SpellInfo extends RecyclerView.ViewHolder implements View.OnClickListener{
+            public TextView SpellName, CastingTime, Components, SpellSchool, Ritual, Concentration;
+            public SpellInfo(@NonNull View itemView) {
+                super(itemView);
+                SpellName = itemView.findViewById(R.id.textview_spell_name);
+                CastingTime = itemView.findViewById(R.id.CastingTime);
+                Components = itemView.findViewById(R.id.Spell_Components);
+                SpellSchool = itemView.findViewById(R.id.SpellSchool);
+                Ritual = itemView.findViewById(R.id.Ritual);
+                Concentration = itemView.findViewById(R.id.Concentration);
+                itemView.setOnClickListener(this);
+            }
+
+            @Override
+            public void onClick(View view) {
+                int position = getAdapterPosition();
+                Log.d("position", String.valueOf(position));
+                if (position != RecyclerView.NO_POSITION) {
+                    JSONObject object = (JSONObject) list.get(position);
+
+                    try {
+                        String SpellName = object.getString("SpellName");
+                        Intent intent = new Intent(AllSpells.this, SpellDescription.class);
+                        intent.putExtra("SpellName", SpellName);
+                        startActivity(intent);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
 
         public CustomAdapter(Context context, String string) {
             this.context = context;
